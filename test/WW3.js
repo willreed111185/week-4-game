@@ -143,7 +143,7 @@ function createState(currentState,ctr){
 	console.log("Counter:",ctr);
 
 	var $stateImage = $("<img>")
-				.attr("scr", "assets/images" + currentState.image)
+				.attr("scr", "assets/images/" + currentState.image)
 				.addClass("imageOfState");
 
 	var $stateDiv = $("<div>")
@@ -156,21 +156,22 @@ function createState(currentState,ctr){
 				.append($stateDiv);
 
 	return $mainDiv;
+
 }
 
 
 for (var i = 0; i<allNations.length; i++){
 	console.log("name This: ", this.name);
 	console.log("GDP This: ", this.gdp);
-	console.log(allNations[i]);
+	console.log("ArrayValue: ",allNations[i]);
 
-	createState(allNations[i],i);
+	var $htmlChar=createState(allNations[i],i);
 
 	if (allNations[i].side == "ally"){
-		$("#rowAllies").append($mainDiv);
+		$("#rowAllies").append($htmlChar);
 	}
 	if (allNations[i].side == "axis"){
-		$("#rowAxis").append($mainDiv);
+		$("#rowAxis").append($htmlChar);
 	}
 }
 

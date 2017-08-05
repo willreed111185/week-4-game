@@ -7,11 +7,11 @@ var USA = {
         powerFactor: 1.1;
        
         attackState : function(){
-                        this.attack = attack*powerFactor;
+                this.attack = attack*powerFactor;
         }
 
         defendState : function(power){
-                        this.gdp = gdp - power;
+                 this.gdp = gdp - power;
         }
 };
 
@@ -24,11 +24,11 @@ var EU = {
         powerFactor: 1.1;
        
         attackState : function(){
-                        this.attack = attack*powerFactor;
+                this.attack = attack*powerFactor;
         }
 
         defendState : function(power){
-                        this.gdp = gdp - power;
+                this.gdp = gdp - power;
         }
 };
 
@@ -41,11 +41,11 @@ var CANADA = {
         powerFactor: 1.1;
        
         attackState : function(){
-                        this.attack = attack*powerFactor;
+                this.attack = attack*powerFactor;
         }
 
         defendState : function(power){
-                        this.gdp = gdp - power;
+                this.gdp = gdp - power;
         }
 };
 
@@ -58,11 +58,11 @@ var USSR = {
         powerFactor: 1.1;
        
         attackState : function(){
-                        this.attack = attack*powerFactor;
+                this.attack = attack*powerFactor;
         }
 
         defendState : function(power){
-                        this.gdp = gdp - power;
+                 this.gdp = gdp - power;
         }
 };
 
@@ -75,11 +75,11 @@ var PRC = {
         powerFactor: 1.1;
        
         attackState : function(){
-                        this.attack = attack*powerFactor;
+                this.attack = attack*powerFactor;
         }
 
         defendState : function(power){
-                        this.gdp = gdp - power;
+                this.gdp = gdp - power;
         }
 };
 
@@ -92,10 +92,10 @@ var NK = {
         powerFactor: 1.1;
        
         attackState : function(){
-                        this.attack = attack*powerFactor;
+                 this.attack = attack*powerFactor;
         }
 
         defendState : function(power){
-                        this.gdp = gdp - power;
+                 this.gdp = gdp - power;
         }
 };
