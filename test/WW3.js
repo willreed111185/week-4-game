@@ -147,15 +147,11 @@ function createState(currentState,ctr){
 				.addClass("imageOfState");
 
 	var $stateDiv = $("<div>")
-				.addClass("state")
+				.addClass("state col-md-4")
 				.data("index", ctr)
 				.append($stateImage);
 
-	var $mainDiv = $("<div>")
-				.addClass("col-md-4")
-				.append($stateDiv);
-
-	return $mainDiv;
+	return $stateDiv;
 
 }
 
@@ -165,7 +161,7 @@ for (var i = 0; i<allNations.length; i++){
 	console.log("GDP This: ", this.gdp);
 	console.log("ArrayValue: ",allNations[i]);
 
-	var $htmlChar=createState(allNations[i],i);
+	$htmlChar=createState(allNations[i],i);
 
 	if (allNations[i].side == "ally"){
 		$("#rowAllies").append($htmlChar);
