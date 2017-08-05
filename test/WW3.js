@@ -1,6 +1,6 @@
 var USA = {
 	name : "USA",
-	side : "ally",
+	side : "Allies",
 	image : "usa.png",
 	gdp: 100,
 	attack: 5,
@@ -18,7 +18,7 @@ var USA = {
 
 var EU = {
 	name : "European Union",
-	side : "ally",
+	side : "Allies",
 	image : "eu.png",
 	gdp: 100,
 	attack: 5,
@@ -35,7 +35,7 @@ var EU = {
 
 var CANADA = {
 	name : "Canada",
-	side : "ally",
+	side : "Allies",
 	image : "canada.png",
 	gdp: 100,
 	attack: 5,
@@ -52,7 +52,7 @@ var CANADA = {
 
 var INDIA = {
 	name : "India",
-	side : "ally",
+	side : "Allies",
 	image : "india.png",
 	gdp: 100,
 	attack: 5,
@@ -69,7 +69,7 @@ var INDIA = {
 
 var USSR = {
 	name : "USSR",
-	side : "axis",
+	side : "Axis",
 	image : "ussr.png",
 	gdp: 100,
 	attack: 5,
@@ -86,7 +86,7 @@ var USSR = {
 
 var PRC = {
 	name : "Peoples Republic of China",
-	side : "axis",
+	side : "Axis",
 	image : "prc.png",
 	gdp: 100,
 	attack: 5,
@@ -103,7 +103,7 @@ var PRC = {
 
 var JAPAN = {
 	name : "JAPAN",
-	side : "axis",
+	side : "Axis",
 	image : "japan.png",
 	gdp: 100,
 	attack: 5,
@@ -120,7 +120,7 @@ var JAPAN = {
 
 var NK = {
 	name : "North Korea",
-	side : "axis",
+	side : "Axis",
 	image : "NK.png",
 	gdp: 100,
 	attack: 5,
@@ -145,6 +145,8 @@ function createState(currentState,ctr){
 	var $stateImage = $("<img>")
 				.attr("scr", "assets/images/" + currentState.image)
 				.addClass("imageOfState");
+				.addClass(currentState.side);
+
 
 	var $stateDiv = $("<div>")
 				.addClass("state col-md-4")
@@ -162,12 +164,13 @@ for (var i = 0; i<allNations.length; i++){
 	console.log("ArrayValue: ",allNations[i]);
 
 	$htmlChar=createState(allNations[i],i);
+	$("#row"+side).append($htmlChar);
 
-	if (allNations[i].side == "ally"){
-		$("#rowAllies").append($htmlChar);
-	}
-	if (allNations[i].side == "axis"){
-		$("#rowAxis").append($htmlChar);
-	}
+	// if (allNations[i].side == "ally"){
+	// 	$("#rowAllies").append($htmlChar);
+	// }
+	// if (allNations[i].side == "axis"){
+	// 	$("#rowAxis").append($htmlChar);
+	// }
 }
 
