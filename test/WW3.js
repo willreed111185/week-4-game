@@ -135,7 +135,7 @@ var NK = {
     }
 };
 
-var allNations = ["USA","EU","CANADA","INDIA","USSR","PRC","JAPAN","NK"];
+var allNations = [USA,EU,CANADA,INDIA,USSR,PRC,JAPAN,NK];
 
 
 function createState(currentState,ctr){
@@ -144,9 +144,8 @@ function createState(currentState,ctr){
 
 	var $stateImage = $("<img>")
 				.attr("scr", "assets/images/" + currentState.image)
-				.addClass("imageOfState");
+				.addClass("imageOfState")
 				.addClass(currentState.side);
-
 
 	var $stateDiv = $("<div>")
 				.addClass("state col-md-4")
@@ -159,12 +158,12 @@ function createState(currentState,ctr){
 
 
 for (var i = 0; i<allNations.length; i++){
-	console.log("name This: ", this.name);
-	console.log("GDP This: ", this.gdp);
+	console.log("name This: ", allNations[i].name);
+	console.log("GDP This: ", allNations[i].gdp);
 	console.log("ArrayValue: ",allNations[i]);
 
 	$htmlChar=createState(allNations[i],i);
-	$("#row"+side).append($htmlChar);
+	$("#row"+allNations[i].side).append($htmlChar);
 
 	// if (allNations[i].side == "ally"){
 	// 	$("#rowAllies").append($htmlChar);
