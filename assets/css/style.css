@@ -1,6 +1,6 @@
 
 img{
-	width:100%;
+	width:60%;
 }
 
 .well{
@@ -10,3 +10,11 @@ img{
 	width:46%;
 	float:left;
 }
+#fightBTN{
+	background: url("../../assets/images/fight.png");
+
+}
+.panel-transparent {
+        background: none;
+        border-color: transparent;
+    }
