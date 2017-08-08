@@ -7,6 +7,7 @@ $(document).ready(function(){
         image : "usa.png",
         gdp: 100,
         attack: 5,
+        Startattack: 5,
         powerFactor: 1.15,
     };
 
@@ -16,6 +17,7 @@ $(document).ready(function(){
         image : "eu.png",
         gdp: 100,
         attack: 3,
+        Startattack: 3,
         powerFactor: 1.12,
     };
 
@@ -25,6 +27,7 @@ $(document).ready(function(){
         image : "canada.png",
         gdp: 100,
         attack: 4,
+        Startattack: 4,
         powerFactor: 1.1,
     };
 
@@ -34,6 +37,7 @@ $(document).ready(function(){
         image : "india.png",
         gdp: 100,
         attack: 2,
+        Startattack: 2,
         powerFactor: 1.105,
     };
 
@@ -43,6 +47,7 @@ $(document).ready(function(){
         image : "ussr.png",
         gdp: 100,
         attack: 6,
+        Startattack: 6,
         powerFactor: 1.1,
     };
 
@@ -52,6 +57,7 @@ $(document).ready(function(){
         image : "prc.png",
         gdp: 100,
         attack:8,
+        Startattack:8,
         powerFactor: 1.15,
     };
 
@@ -61,6 +67,7 @@ $(document).ready(function(){
         image : "japan.png",
         gdp: 100,
         attack: 3,
+        Startattack: 3,
         powerFactor: 1.12,
     };
 
@@ -70,6 +77,7 @@ $(document).ready(function(){
         image : "nk.png",
         gdp: 100,
         attack: 3,
+        Startattack: 3,
         powerFactor: 1.1,
     };
 
@@ -111,6 +119,15 @@ $(document).ready(function(){
 
     var bomb = document.createElement("audio");
     bomb.setAttribute("src", "assets/bomb.wav");
+
+    var cheer = document.createElement("audio");
+    bomb.setAttribute("src", "assets/cheer.mp3");
+
+    var cocked = document.createElement("audio");
+    bomb.setAttribute("src", "assets/gun_cock.mp3");
+
+    var gun_shot = document.createElement("audio");
+    bomb.setAttribute("src", "assets/gun_shot.mp3");
     
 
         $("#fightBTN").css("visibility", "hidden");
@@ -130,6 +147,13 @@ $(document).ready(function(){
                         .addClass(currentState.side)
                         .append($stateImage);
             return $stateDiv;
+        }
+
+        function resetHealth(){
+            for (var i = 0; i<allNations.length; i++){
+                allNations[i].gdp = 100;
+                allNations[i].attack = allNations[i].Startattack;
+            }
         }
 
         function initializeStates(){
@@ -166,6 +190,7 @@ $(document).ready(function(){
                     player1picked = true;
                     player1 = player; 
                     $("#alliesBar").css("visibility", "visible");
+                    cocked.play();
                 }
 
                 else if ($(this).hasClass("Axis") == true && player2picked == false){
@@ -175,6 +200,7 @@ $(document).ready(function(){
                     player2 = player;
                     player2picked = true;
                     $("#axisBar").css("visibility", "visible");
+                    cocked.play();
                 }
 
                 if (player1picked == true && player2picked == true){
@@ -190,6 +216,7 @@ $(document).ready(function(){
 //***********************************************************************
 //***********************************************************************
         $("#fightBTN").on("click", function(){
+            
             if (fightMode == true){
                 bomb.play();
                 player1Power = allNations[player1].attack;
@@ -208,6 +235,7 @@ $(document).ready(function(){
                 if (allNations[player1].gdp <= 0){
                     alert("You Loose");
                     deadNations = [];
+                    resetHealth();
                     initializeStates();
                     $("#fightBTN").css("visibility", "hidden");
                 }
@@ -215,6 +243,11 @@ $(document).ready(function(){
                 else if (allNations[player2].gdp <= 0){
                     alert("You Defeated: "+ allNations[player2].name);
                     deadNations.push((allNations[player2]).name);
+                    if(deadNations.length == 4){
+                        deadNations = [];
+                        resetHealth();
+                        alert("VICTORY");
+                    }
                     console.log(deadNations);
                     initializeStates();
                     $("#fightBTN").css("visibility", "hidden");
