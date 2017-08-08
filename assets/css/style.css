@@ -1,4 +1,10 @@
 
+.font{
+	font-family: 'Black Ops One', cursive;
+	font-size: 125px;
+	text-shadow: 4px 4px 4px #aaa;
+}
+
 img{
 	width:60%;
 }
@@ -10,11 +16,19 @@ img{
 	width:46%;
 	float:left;
 }
-#fightBTN{
-	background: url("../../assets/images/fight.png");
-
-}
 .panel-transparent {
-        background: none;
-        border-color: transparent;
+    background: none;
+    border-color: transparent;
     }
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.jumbotron{
+    background: none;
+    border-color: transparent;
+    color:white;
+    text-align: center
+
+    }
+

@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 
     var USA = {
@@ -8,33 +7,16 @@ $(document).ready(function(){
         image : "usa.png",
         gdp: 100,
         attack: 5,
-        powerFactor: 1.1,
-        
-        attackState : function(){
-            this.attack = attack*powerFactor;
-        },
-
-        defendState : function(power){
-            this.gdp = gdp - power;
-        }
-
+        powerFactor: 1.15,
     };
 
     var EU = {
-        name : "European Union",
+        name : "EuropeanUnion",
         side : "Allies",
         image : "eu.png",
         gdp: 100,
         attack: 3,
-        powerFactor: 1.1,
-        
-        attackState : function(){
-            this.attack = attack*powerFactor;
-        },
-
-        defendState : function(power){
-            this.gdp = gdp - power;
-        }
+        powerFactor: 1.12,
     };
 
     var CANADA = {
@@ -44,14 +26,6 @@ $(document).ready(function(){
         gdp: 100,
         attack: 4,
         powerFactor: 1.1,
-        
-        attackState : function(){
-            this.attack = attack*powerFactor;
-        },
-
-        defendState : function(power){
-            this.gdp = gdp - power;
-        }
     };
 
     var INDIA = {
@@ -60,15 +34,7 @@ $(document).ready(function(){
         image : "india.png",
         gdp: 100,
         attack: 2,
-        powerFactor: 1.1,
-        
-        attackState : function(){
-            this.attack = attack*powerFactor;
-        },
-
-        defendState : function(power){
-            this.gdp = gdp - power;
-        }
+        powerFactor: 1.105,
     };
 
     var USSR = {
@@ -76,16 +42,8 @@ $(document).ready(function(){
         side : "Axis",
         image : "ussr.png",
         gdp: 100,
-        attack: 5,
+        attack: 6,
         powerFactor: 1.1,
-        
-        attackState : function(){
-            this.attack = attack*powerFactor;
-        },
-
-        defendState : function(power){
-            this.gdp = gdp - power;
-        }
     };
 
     var PRC = {
@@ -93,16 +51,8 @@ $(document).ready(function(){
         side : "Axis",
         image : "prc.png",
         gdp: 100,
-        attack: 4,
-        powerFactor: 1.1,
-        
-        attackState : function(){
-            this.attack = attack*powerFactor;
-        },
-
-        defendState : function(power){
-            this.gdp = gdp - power;
-        }
+        attack:8,
+        powerFactor: 1.15,
     };
 
     var JAPAN = {
@@ -110,16 +60,8 @@ $(document).ready(function(){
         side : "Axis",
         image : "japan.png",
         gdp: 100,
-        attack: 2,
-        powerFactor: 1.1,
-        
-        attackState : function(){
-            this.attack = attack*powerFactor;
-        },
-
-        defendState : function(power){
-            this.gdp = gdp - power;
-        }
+        attack: 3,
+        powerFactor: 1.12,
     };
 
     var NK = {
@@ -129,14 +71,6 @@ $(document).ready(function(){
         gdp: 100,
         attack: 3,
         powerFactor: 1.1,
-        
-        attackState : function(){
-            this.attack = attack*powerFactor;
-        },
-
-        defendState : function(power){
-            this.gdp = gdp - power;
-        }
     };
 
     var allNations = [USA,EU,CANADA,INDIA,USSR,PRC,JAPAN,NK];
@@ -151,11 +85,37 @@ $(document).ready(function(){
     var player2Health;
     var fightMode = false;
 
+    document.body.style.backgroundImage = "url('assets/images/background.jpg')";
 
-    for (i=0; i<4; i++){ //for loop to go through all enemies
+    var soundtrack = document.createElement("audio");
+    soundtrack.setAttribute("src", "assets/imperial.mp3");
+    soundtrack.loop = true;
+    soundtrack.play();
+    
+    $("#pause").on("click", function(){
+        $("#pause").css("visibility", "hidden");
+        $("#play").css("visibility", "visible");
+        soundtrack.pause();
+    });
+    $("#play").on("click", function(){
+        $("#play").css("visibility", "hidden");
+        $("#pause").css("visibility", "visible");
+        soundtrack.play();
+    });
+
+    $("p").hover(function(){
+            $(this).css("background-color", "yellow");
+            }, function(){
+            $(this).css("background-color", "pink");
+        });
+
+    var bomb = document.createElement("audio");
+    bomb.setAttribute("src", "assets/bomb.wav");
+    
 
         $("#fightBTN").css("visibility", "hidden");
-        initializeStates();
+        $(".progress").css("visibility", "hidden");
+        $(".play").css("visibility", "hidden");
 
         function createState(currentState,ctr){
             var $stateImage = $("<img>")
@@ -180,7 +140,9 @@ $(document).ready(function(){
             $("#rowAxis").css("opacity", "1");
             player1 = -1;
             player2 = -1;
-
+            player1picked = false;
+            player2picked = false;
+            fightMode = false;
 
             for (var i = 0; i<allNations.length; i++){
                 var testDead = deadNations.indexOf(allNations[i].name);
@@ -190,67 +152,74 @@ $(document).ready(function(){
                     $("#row"+allNations[i].side).append($htmlChar);
                 }
             }
-        }
+            console.log("initialized");
+        
 
-        $(".ImageContainer").on("click", function(){
-            player = $(this).attr("id");  
-            console.log("CLICKED ON: ",player);
+            $(".ImageContainer").on("click", function(){
+                console.log("CLICKED ON ImageContainer");
+                player = $(this).attr("id");  
 
-            if ($(this).hasClass("Allies") == true && player1picked == false){
-                $fighterChar=createState(allNations[player]);
-                $("#rowFight").append($fighterChar);
-                $("#rowAllies").css("opacity", ".3");
-                player1picked = true;
-                player1 = player; 
-            }
+                if ($(this).hasClass("Allies") == true && player1picked == false){
+                    $fighterChar=createState(allNations[player]);
+                    $("#rowFight").append($fighterChar);
+                    $("#rowAllies").css("opacity", ".3");
+                    player1picked = true;
+                    player1 = player; 
+                    $("#alliesBar").css("visibility", "visible");
+                }
 
-            else if ($(this).hasClass("Axis") == true && player2picked == false){
-                $fighterChar=createState(allNations[player]);
-                $("#rowFight").append($fighterChar);
-                $("#rowAxis").css("opacity", ".3");
-                player2 = player;
-                player2picked = true;
-            }
+                else if ($(this).hasClass("Axis") == true && player2picked == false){
+                    $fighterChar=createState(allNations[player]);
+                    $("#rowFight").append($fighterChar);
+                    $("#rowAxis").css("opacity", ".3");
+                    player2 = player;
+                    player2picked = true;
+                    $("#axisBar").css("visibility", "visible");
+                }
 
-            if (player1picked == true && player2picked == true){
-                $("#fightBTN").css("visibility", "visible");
-                fightMode=true;
-            }
-        });
-
+                if (player1picked == true && player2picked == true){
+                    $("#fightBTN").css("visibility", "visible");
+                    fightMode=true;
+                }
+            });
+//***********************************************************************
+//***********************************************************************
+//***********************************************************************
+        }//WHY DOES THIS NEED TO BE IN MY INITIALIZE SCRIPT ??????
+//***********************************************************************
+//***********************************************************************
+//***********************************************************************
         $("#fightBTN").on("click", function(){
             if (fightMode == true){
-                player1Power=allNations[player1].attack;
-                player2Power=allNations[player2].attack;
+                bomb.play();
+                player1Power = allNations[player1].attack;
+                player2Power = allNations[player2].attack;
                 allNations[player1].gdp -= player2Power;
                 allNations[player2].gdp -= player1Power;
-                allNations[player1].attack = allNations[player1].attack * 2;
-                $("#scorePlayer1").text("Health Allies: "+ allNations[player1].gdp);
-                $("#scorePlayer2").text("Health Axis: "+ allNations[player2].gdp);
-
+                console.log("hit");
+                allNations[player1].attack = allNations[player1].attack * allNations[player1].powerFactor;
+                console.log("GDP1: ", allNations[player1].gdp)
+                console.log("GDP2: ", allNations[player2].gdp)
+                //$("#scorePlayer1").text("Health Allies: "+ allNations[player1].gdp);
+                //$("#scorePlayer2").text("Health Axis: "+ allNations[player2].gdp);
+                $("#alliesBar").width(allNations[player1].gdp + "%");
+                $("#axisBar").width(allNations[player2].gdp + "%");
 
                 if (allNations[player1].gdp <= 0){
                     alert("You Loose");
                     deadNations = [];
                     initializeStates();
-                    fightMode = false;
+                    $("#fightBTN").css("visibility", "hidden");
                 }
+
                 else if (allNations[player2].gdp <= 0){
                     alert("You Defeated: "+ allNations[player2].name);
                     deadNations.push((allNations[player2]).name);
                     console.log(deadNations);
                     initializeStates();
                     $("#fightBTN").css("visibility", "hidden");
-                    player1picked = false;
-                    player2picked = false;
-                    fightMode = false;
                 }
             }
-
-            // console.log("player1Power: ",player1Power);
-            // console.log("player2Power: ",player2Power);
-            // console.log("player1Health: ",allNations[player1].gdp);
-            // console.log("player2Health: ",allNations[player2].gdp);
         })
-    }//close for loop to kill all enemies
+        initializeStates();
 })
