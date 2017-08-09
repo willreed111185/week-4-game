@@ -120,14 +120,14 @@ $(document).ready(function(){
     var bomb = document.createElement("audio");
     bomb.setAttribute("src", "assets/bomb.wav");
 
-    var cheer = document.createElement("audio");
-    bomb.setAttribute("src", "assets/cheer.mp3");
+    // var cheer = document.createElement("audio");
+    // bomb.setAttribute("src", "assets/cheer.mp3");
 
-    var cocked = document.createElement("audio");
-    bomb.setAttribute("src", "assets/gun_cock.mp3");
+    // var cocked = document.createElement("audio");
+    // bomb.setAttribute("src", "assets/gunCock.mp3");
 
-    var gun_shot = document.createElement("audio");
-    bomb.setAttribute("src", "assets/gun_shot.mp3");
+    // var gun_shot = document.createElement("audio");
+    // bomb.setAttribute("src", "assets/gun_shot.mp3");
     
 
         $("#fightBTN").css("visibility", "hidden");
@@ -135,18 +135,19 @@ $(document).ready(function(){
         $(".play").css("visibility", "hidden");
 
         function createState(currentState,ctr){
-            var $stateImage = $("<img>")
+            var stateImage = $("<img>")
                         .attr("src", "assets/images/" + currentState.image)
                         .addClass("imageOfState")
                         .addClass(currentState.side);
 
-            var $stateDiv = $("<div>")
+            var stateDiv = $("<div>")     
                         .addClass("state col-md-3")
                         .attr("id", ctr)
                         .addClass("ImageContainer")
                         .addClass(currentState.side)
-                        .append($stateImage);
-            return $stateDiv;
+                        .append(stateImage);
+                        console.log(stateDiv);
+            return stateDiv;
         }
 
         function resetHealth(){
@@ -170,16 +171,17 @@ $(document).ready(function(){
 
             for (var i = 0; i<allNations.length; i++){
                 var testDead = deadNations.indexOf(allNations[i].name);
-                console.log("deadTest: ", testDead);
                 if (testDead == -1){
+                    console.log(allNations[i].name)
+
                     $htmlChar=createState(allNations[i],i);
                     $("#row"+allNations[i].side).append($htmlChar);
                 }
             }
             console.log("initialized");
-        
+        }
 
-            $(".ImageContainer").on("click", function(){
+            $(".lineup").on("click", ".ImageContainer", function(){
                 console.log("CLICKED ON ImageContainer");
                 player = $(this).attr("id");  
 
@@ -190,7 +192,7 @@ $(document).ready(function(){
                     player1picked = true;
                     player1 = player; 
                     $("#alliesBar").css("visibility", "visible");
-                    cocked.play();
+                    // cocked.play();
                 }
 
                 else if ($(this).hasClass("Axis") == true && player2picked == false){
@@ -200,7 +202,7 @@ $(document).ready(function(){
                     player2 = player;
                     player2picked = true;
                     $("#axisBar").css("visibility", "visible");
-                    cocked.play();
+                    // cocked.play();
                 }
 
                 if (player1picked == true && player2picked == true){
@@ -211,11 +213,15 @@ $(document).ready(function(){
 //***********************************************************************
 //***********************************************************************
 //***********************************************************************
-        }//WHY DOES THIS NEED TO BE IN MY INITIALIZE SCRIPT ??????
+        //WHY DOES THIS NEED TO BE IN MY INITIALIZE SCRIPT ??????
 //***********************************************************************
+//****The go find happened only on page load. it can be written with a listener 
+//$(document).on('click', '.imageContainer', function(){
+
+
+//};
 //***********************************************************************
-//***********************************************************************
-        $("#fightBTN").on("click", function(){
+        $(".buttonDiv").on("click","#fightBTN", function(){
             
             if (fightMode == true){
                 bomb.play();
