@@ -210,16 +210,7 @@ $(document).ready(function(){
                     fightMode=true;
                 }
             });
-//***********************************************************************
-//***********************************************************************
-//***********************************************************************
-        //WHY DOES THIS NEED TO BE IN MY INITIALIZE SCRIPT ??????
-//***********************************************************************
-//****The go find happened only on page load. it can be written with a listener 
-//$(document).on('click', '.imageContainer', function(){
 
-
-//};
 //***********************************************************************
         $(".buttonDiv").on("click","#fightBTN", function(){
             
